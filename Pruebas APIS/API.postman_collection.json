@@ -1,0 +1,96 @@
+{
+  "info": {
+    "_postman_id": "3dad1b38-52f0-4318-8a5d-ee9804ea7af1",
+    "name": "API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48947123"
+  },
+  "item": [
+    {
+      "name": "New Request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Tiempo de respuesta menor a 1000ms\", function () {\r",
+              "    console.log(\"Tiempo de respuesta:\", pm.response.responseTime, \"ms\");\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "// ===============================\r",
+              "// 2. STATUS CODE\r",
+              "// ===============================\r",
+              "pm.test(\"Status codigo es 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "console.log(\"Status codigo es :\", pm.response.code);\r",
+              "\r",
+              "\r",
+              "// ===============================\r",
+              "// 3. VALIDACIÓN VIVO / MUERTO\r",
+              "// ===============================\r",
+              "pm.test(\"Validación de estado del personaje\", function () {\r",
+              "    const json = pm.response.json();\r",
+              "    const status = json.status;\r",
+              "\r",
+              "    if (status === \"Alive\") {\r",
+              "        console.log(\"ESTADO: VIVO 🟢\");\r",
+              "    } \r",
+              "    else if (status === \"Dead\") {\r",
+              "        console.log(\"ESTADO: MUERTO 🔴\");\r",
+              "    } \r",
+              "    else if (status === \"unknown\") {\r",
+              "        console.log(\"ESTADO: DESCONOCIDO ⚪\");\r",
+              "    } \r",
+              "    else {\r",
+              "        console.log(\"ESTADO: NO RECONOCIDO ❓\");\r",
+              "    }\r",
+              "\r",
+              "    pm.expect([\"Alive\", \"Dead\", \"unknown\"]).to.include(status);\r",
+              "});\r",
+              "\r",
+              "// ===============================\r",
+              "// 4. VALIDACIÓN DE TIPOS DE DATOS\r",
+              "// ===============================\r",
+              "pm.test(\"Validación de tipos de datos\", function () {\r",
+              "    const json = pm.response.json();\r",
+              "\r",
+              "    pm.expect(json).to.have.property(\"id\").that.is.a(\"number\");\r",
+              "    pm.expect(json).to.have.property(\"name\").that.is.a(\"string\");\r",
+              "    pm.expect(json).to.have.property(\"status\").that.is.a(\"string\");\r",
+              "    pm.expect(json).to.have.property(\"species\").that.is.a(\"string\");\r",
+              "    pm.expect(json).to.have.property(\"gender\").that.is.a(\"string\");\r",
+              "    pm.expect(json).to.have.property(\"image\").that.is.a(\"string\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://rickandmortyapi.com/api/character/{{id}}",
+          "protocol": "https",
+          "host": [
+            "rickandmortyapi",
+            "com"
+          ],
+          "path": [
+            "api",
+            "character",
+            "{{id}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
